@@ -1,0 +1,27 @@
+1038  cd Downloads/
+ 1039  ls
+ 1040  mkdir rpi_kernel
+ 1041  cd rpi_kernel/
+ 1042  rsync --rsh=ssh -aP pi@192.168.220.13:/usr/src/* ./
+ 1043  cd linux-rpi-3.6.y/
+ 1044  export KERNEL_SRC=`pwd`
+ 1045  cd ..
+ 1046  ls
+ 1047  wget https://github.com/raspberrypi/tools/archive/master.tar.gz
+ 1048  mkdir tools
+ 1049  cd tools/
+ 1050  tar -xvzf ../master.tar.gz 
+ 1051  cd ..
+ 1052  mv tools/tools-master ./
+ 1053  mv master.tar.gz tools-master.tar.gz 
+ 1054  export CCPREFIX=`pwd`/tools-master/arm-bcm2708/arm-bcm2708-linux-gnueabi/bin/arm-bcm2708-linux-gnueabi- 
+ 1055  ls $CCPREFIX
+ 1056  cd linux-rpi-3.6.y/
+ 1057  make ARCH=arm CROSS_COMPILE=${CCPREFIX} 
+ 1058  find . -name 'rtc-pcf2127a*'
+ 1059  scp drivers/rtc/rtc-pcf2127a.ko pi@192.168.220.13:/tmp/
+ 1060  scp drivers/rtc/rtc-pcf2127a.ko /home/rambo/devel/raspi/modules/
+ 1061  ls
+ 1062  scp Module.symvers  /home/rambo/devel/raspi/modules/
+ 1063  exit
+
